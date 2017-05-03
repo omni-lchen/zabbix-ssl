@@ -1,0 +1,12 @@
+{
+  "DomainGroup1": [
+    {"domain": "www.a.com"},
+    {"domain": "www.b.com"},
+    {"domain": "www.c.com"}
+  ],
+  "DomainGroup2": [
+    {"domain": "www.d.com"},
+    {"domain": "www.e.com"},
+    {"domain": "www.f.com"}
+  ]
+}
