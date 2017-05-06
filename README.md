@@ -1,10 +1,10 @@
 # Zabbix-SSL
 
-SSL certificates expiry date monitoring separated by groups.
+SSL certificates expiry date monitoring separated by groups, suitable for monitoring hundreds of websites.
 
 **Installation**
 
-Pre-requisite: Zabbix Sender, Openssl Client, JQ - https://stedolan.github.io/jq/
+Pre-requisites: Zabbix Sender, Openssl Client, JQ - https://stedolan.github.io/jq/
 
 1. Copy the scripts and SSL configuration to zabbix external scripts directory: /usr/lib/zabbix/externalscripts
 
