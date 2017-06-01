@@ -36,3 +36,4 @@ if [ -n "$response" ]; then
   echo "$response"
 else
   echo "$result"
+fi
