@@ -16,7 +16,7 @@ DOMAIN_GROUP=$1
 ZABBIX_HOST=$2
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ALL_DOMAINS=$SCRIPT_DIR"/ssl/sslCertDomains.json"
-QUERY_DOMAINS=$(eval "cat $ALL_DOMAINS | jq -r '."$DOMAIN_GROUP"[] .domain' | xargs 2>/dev/null")
+QUERY_DOMAINS=$(cat $ALL_DOMAINS | jq --arg DOMAIN_GROUP $DOMAIN_GROUP -r '.[$DOMAIN_GROUP][] .domain' | xargs 2>/dev/null)
 
 get_SSL_Certs_Expirydate() {
   for domain in $QUERY_DOMAINS; do
