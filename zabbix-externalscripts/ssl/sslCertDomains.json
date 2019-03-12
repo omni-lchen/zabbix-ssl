@@ -1,12 +1,36 @@
 {
   "DomainGroup1": [
-    {"domain": "www.a.com"},
-    {"domain": "www.b.com"},
-    {"domain": "www.c.com"}
+    {"domain": {
+      "name": "www.a.com"
+      "port": "443"
+      }
+    },
+    {"domain": {
+      "name": "www.b.com"
+      "port": "443"
+      }
+    },
+    {"domain": {
+      "name": "www.c.com"
+      "port": "443"
+      }
+    }
   ],
   "DomainGroup2": [
-    {"domain": "www.d.com"},
-    {"domain": "www.e.com"},
-    {"domain": "www.f.com"}
+    {"domain": {
+      "name": "www.d.com"
+      "port": "443"
+      }
+    },
+    {"domain": {
+      "name": "www.e.com"
+      "port": "443"
+      }
+    },
+    {"domain": {
+      "name": "www.f.com"
+      "port": "443"
+      }
+    }
   ]
 }

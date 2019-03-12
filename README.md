@@ -1,6 +1,7 @@
 # Zabbix-SSL
 
 SSL certificates expiry date monitoring separated by groups, suitable for monitoring hundreds of websites.
+Support port per domain.
 
 **Installation**
 
@@ -8,7 +9,7 @@ Pre-requisites: Zabbix Sender, Openssl Client, JQ - https://stedolan.github.io/j
 
 1. Copy the scripts and SSL configuration to zabbix external scripts directory: /usr/lib/zabbix/externalscripts
 
-2. Add domains to the configuration file: ssl/sslCertDomains.json
+2. Add domains and ports to the configuration file: ssl/sslCertDomains.json
 
 3. Create zabbix host and link with SSL template, add macro to the host: {$DOMAIN_GROUP}, macro value should match the group name in the SSL configuration file.
 

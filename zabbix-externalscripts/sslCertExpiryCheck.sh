@@ -13,20 +13,22 @@
 
 # Query domains in a group
 DOMAIN_GROUP=$1
-ZABBIX_HOST=$2
+ZABBIX_HOST="$2"
 SCRIPT_DIR="$( cd "$( dirname "$0" )" && pwd )"
 ALL_DOMAINS=$SCRIPT_DIR"/ssl/sslCertDomains.json"
-QUERY_DOMAINS=$(cat $ALL_DOMAINS | jq --arg DOMAIN_GROUP $DOMAIN_GROUP -r '.[$DOMAIN_GROUP][] .domain' | xargs 2>/dev/null)
+QUERY_DOMAINS=$(cat $ALL_DOMAINS | jq --arg DOMAIN_GROUP $DOMAIN_GROUP -r '.[$DOMAIN_GROUP][] | .domain.name + "-" + .domain.port' | xargs 2>/dev/null)
 
 get_SSL_Certs_Expirydate() {
   for domain in $QUERY_DOMAINS; do
-  expiry_date=$(timeout 3 openssl s_client -host "$domain" -port 443 -servername "$domain" -showcerts </dev/null 2>/dev/null | sed -n '/BEGIN CERTIFICATE/,/END CERT/p' | openssl x509 -text 2>/dev/null | sed -n 's/ *Not After : *//p')
+  NAME=${domain%-*}
+  PORT=${domain##*-}
+  expiry_date=$(echo QUIT | timeout 3 openssl s_client -host "$NAME" -port "$PORT" -servername "$NAME" -showcerts </dev/null 2>/dev/null | sed -n '/BEGIN CERTIFICATE/,/END CERT/p' | openssl x509 -text 2>/dev/null | sed -n 's/ *Not After : *//p')
   if [ -n "$expiry_date" ]; then
     expiry_date_unix=$(date '+%s' --date "$expiry_date")
   else
     expiry_date_unix=0
   fi
-  echo $ZABBIX_HOST" ssl.cert.expirydate["$domain"] "$expiry_date_unix
+  echo "\"$ZABBIX_HOST\""" ssl.cert.expirydate["${NAME}-${PORT}"] "$expiry_date_unix
 done
 }
 
